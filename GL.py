@@ -7,34 +7,30 @@ def GL(nMax, precision, verbose = 0):
     
     with gmpy2.local_context(gmpy2.context(), precision=100) as ctx:
         ctx.precision += precision
-        a = gmpy2.mpfr(float('1.0'));
-        b = gmpy2.mpfr(float(1.0/gmpy2.sqrt(2)));
-        s = gmpy2.mpfr(float(1/4.0));
-        
-        
+        a = gmpy2.mpfr('1.0');
+        b = gmpy2.mpfr(1.0/gmpy2.sqrt(2));
+        s = gmpy2.mpfr(1/4.0);
 
-        for i in range(nMax ):
-            out, error = computeOutput(a, s);        
+        for i in range(nMax+1 ):
+            out, error = computeOutput(a, s, precision);        
             aNew = arMean(a,b);
             c = sub(a,aNew);
 
             if verbose:
-               print(a**2/s, aNew**2/s)
+               print(prod(a,a)/s, prod(aNew,aNew)/s)           
             
-            
-            bNew = geoMean(a,b);
-            out, error = computeOutput(a, s);
+            bNew = geoMean(a,b);           
 
-            s = sub(s, 2**i*c**2);            
+            s = sub(s, prod(gmpy2.exp2(i),prod(c,c)));            
             b = bNew;
             a = aNew;        
         
         return out, error
 
 
-def computeOutput(a,s):
-    out = div(a**2, s);
-    error = sub(out, gmpy2.const_pi());
+def computeOutput(a,s, precision):
+    out = div(prod(a,a), s);
+    error = sub(out, gmpy2.const_pi(10000));
     return  out, error
 
 def add(a,b):
@@ -59,7 +55,7 @@ def arMean(a,b):
 def geoMean(a,b):
     return sqrt(prod(a, b));
 
-out, error = GL(1, 57, 1);
+out, error = GL(8, 2000);
 
 #print(f'The value of pi is approximately {out:.64f}. {out-np.pi:.64f}')
 print(out)
