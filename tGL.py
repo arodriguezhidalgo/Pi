@@ -40,7 +40,6 @@ class GLSystemLevel(unittest.TestCase):
         # Verification
         self.assertAlmostEqual(returnedPi, expectedPi,15)
         
-
 class GLUnitLevel(unittest.TestCase):
     def test_GLObjectIsOfRightClass(self):
         specimen = GL(1);
@@ -59,7 +58,11 @@ class GLUnitLevel(unittest.TestCase):
         self.assertEqual(returnedContext.precision, expectedPrecision);
 
     def test_returnsCorrectNumberOfDigits(self):
-        self.assertTrue(0);
+        specimen = GL(5);
+        expectedDigits = -1;
+
+        returnedDigits= specimen.getErrorDigits(0.5,0.4);        
+        self.assertEqual(returnedDigits, expectedDigits);
 
 if __name__ == '__main__':
     unittest.main()

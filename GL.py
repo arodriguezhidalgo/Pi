@@ -29,8 +29,7 @@ class GL:
 
                 outLower = self.computeOutput(a, s);       
                 error = self.getErrorDigits(out, outLower);
-
-
+                
             return out, error
 
     def getErrorDigits(self, outUpper, outLower):
