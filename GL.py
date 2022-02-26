@@ -4,9 +4,9 @@ import gmpy2
 
 class GL:
     def __init__(self, prec):
-        self.precision = prec;
-        self.ctx = gmpy2.get_context();
-        self.ctx.precision = prec;
+        self.__precision = prec;
+        self.__ctx = gmpy2.get_context();
+        self.__ctx.precision = prec;
 
     def computePi(self, nMax, precision, verbose = 0):        
             a = gmpy2.mpfr('1.0');
@@ -30,9 +30,16 @@ class GL:
                 outLower = self.computeOutput(a, s);       
                 error = out-outLower;
             return out, error
+
     def computeOutput(self, a,s):
         out = div(prod(a,a), s);
         return  out
+
+    def getPrecision(self):
+        return self.__precision;
+
+    def getContext(self):
+        return self.__ctx;
 
 def add(a,b):
     return gmpy2.add(a,b);
