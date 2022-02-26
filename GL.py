@@ -3,10 +3,7 @@
 import gmpy2
 from PiComputation import PiComputation
 
-class GL(PiComputation):
-    def __init__(self, prec):
-        self = super().__init__(prec);
-        
+class GL(PiComputation):        
     def computePi(self, nMax, verbose = 0):        
             a = gmpy2.mpfr('1.0');
             b = gmpy2.mpfr(1.0/gmpy2.sqrt(2));
@@ -32,11 +29,19 @@ class GL(PiComputation):
             return out, error
 
    
-class BB1():
-    def __init__(self, prec):
-        self.__precision = prec;
-        self.__ctx = gmpy2.get_context();
-        self.__ctx.precision = prec;
+class BB1(PiComputation):
+    def computePi(self, nMax, verbose = 0):   
+        x = sqrt(2);
+
+        outLower = x;
+        outUpper = x+2;
+        if nMax == 0:
+            return outLower, self.getErrorDigits(outLower, outUpper);
+                    
+        y = sqrt(x);
+        x = gmpy2.mpfr('1/2')*(sqrt(x)+div(1, sqrt(x)));
+
+
 
 def add(a,b):
     return gmpy2.add(a,b);
