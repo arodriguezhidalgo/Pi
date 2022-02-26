@@ -8,7 +8,7 @@ class GL:
         self.__ctx = gmpy2.get_context();
         self.__ctx.precision = prec;
 
-    def computePi(self, nMax, precision, verbose = 0):        
+    def computePi(self, nMax, verbose = 0):        
             a = gmpy2.mpfr('1.0');
             b = gmpy2.mpfr(1.0/gmpy2.sqrt(2));
             s = gmpy2.mpfr(1/4.0);
