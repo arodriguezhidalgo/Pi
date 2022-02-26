@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
 import gmpy2
+from PiComputation import PiComputation
 
-class GL:
+class GL(PiComputation):
     def __init__(self, prec):
-        self.__precision = prec;
-        self.__ctx = gmpy2.get_context();
-        self.__ctx.precision = prec;
-
+        self = super().__init__(prec);
+        
     def computePi(self, nMax, verbose = 0):        
             a = gmpy2.mpfr('1.0');
             b = gmpy2.mpfr(1.0/gmpy2.sqrt(2));
@@ -32,19 +31,12 @@ class GL:
                 
             return out, error
 
-    def getErrorDigits(self, outUpper, outLower):
-        error = outUpper - outLower;
-        return gmpy2.digits(error)[1]-1; # The output is similar to 0.21e-20, so we need to do -1.
-
-    def computeOutput(self, a,s):
-        out = div(prod(a,a), s);
-        return  out
-
-    def getPrecision(self):
-        return self.__precision;
-
-    def getContext(self):
-        return self.__ctx;
+   
+class BB1():
+    def __init__(self, prec):
+        self.__precision = prec;
+        self.__ctx = gmpy2.get_context();
+        self.__ctx.precision = prec;
 
 def add(a,b):
     return gmpy2.add(a,b);
