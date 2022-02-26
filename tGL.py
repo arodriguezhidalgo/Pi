@@ -9,12 +9,14 @@ class GLSystemLevel(unittest.TestCase):
         specimen = GL(precision);
         self.specimen = specimen;
         return self
+
     def test_computesKnownError(self):
         # If I am not wrong, IEEE 754 gives 52 bits for fractions. This means detecting up to 
         # 1.11x10e-16. Using 4 iterations should give a smaller error than that.
+
         # Setup
         nIterations = 4; 
-        expectedError = -21;
+        expectedError = -21; # Number of correct digits.
                 
         # Exec
         [dummy, returnedError] = self.specimen.computePi(nIterations);
@@ -24,7 +26,20 @@ class GLSystemLevel(unittest.TestCase):
 
     
     def test_fairlyGoodPiEstimation(self):
-        self.assertTrue(1);
+        # We compare our estimation against the one in math library. It should have the 52 bits 
+        # mentioned in another tests.
+
+        # Setup
+        from math import pi
+        nIterations = 4;
+        expectedPi = pi;
+
+        # Exec
+        [returnedPi, returnedError] = self.specimen.computePi(nIterations);
+        
+        # Verification
+        self.assertAlmostEqual(returnedPi, expectedPi,15)
+        
 
 class GLUnitLevel(unittest.TestCase):
     def test_GLObjectIsOfRightClass(self):
