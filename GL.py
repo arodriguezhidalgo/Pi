@@ -41,6 +41,7 @@ class BB1(PiComputation):
         y = sqrt(x);
         x = gmpy2.mpfr('1/2')*(sqrt(x)+div(1, sqrt(x)));
 
+    
 
 
 def add(a,b):
