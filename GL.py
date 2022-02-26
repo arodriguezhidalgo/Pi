@@ -28,8 +28,14 @@ class GL:
                 a = aNew; 
 
                 outLower = self.computeOutput(a, s);       
-                error = out-outLower;
+                error = self.getErrorDigits(out, outLower);
+
+
             return out, error
+
+    def getErrorDigits(self, outUpper, outLower):
+        error = outUpper - outLower;
+        return gmpy2.digits(error)[1]-1; # The output is similar to 0.21e-20, so we need to do -1.
 
     def computeOutput(self, a,s):
         out = div(prod(a,a), s);

@@ -4,23 +4,24 @@ import unittest
 from GL import GL
 
 class GLSystemLevel(unittest.TestCase):
+    def setUp(self):        
+        precision = 100;  # bits.
+        specimen = GL(precision);
+        self.specimen = specimen;
+        return self
     def test_computesKnownError(self):
-        # If I am not wrong, IEEE 754 gives 52 bits for fractions. This means detecting upt to 
+        # If I am not wrong, IEEE 754 gives 52 bits for fractions. This means detecting up to 
         # 1.11x10e-16. Using 4 iterations should give a smaller error than that.
         # Setup
         nIterations = 4; 
-        precision = 100;  # bits.
-        expectedError = 3.72*1e-21;
-        specimen = GL(precision);
-        
+        expectedError = -21;
+                
         # Exec
-        [dummy, returnedError] = specimen.computePi(nIterations);
+        [dummy, returnedError] = self.specimen.computePi(nIterations);
         
         # Assertion
-        self.assertAlmostEqual(returnedError, expectedError, 23);        
+        self.assertEqual(returnedError, expectedError);        
 
-    def test_returnsNumberOfCorrectDigits(self):
-        self.assertTrue(1);
     
     def test_fairlyGoodPiEstimation(self):
         self.assertTrue(1);
@@ -41,6 +42,9 @@ class GLUnitLevel(unittest.TestCase):
         specimen = GL(expectedPrecision);
         returnedContext = specimen.getContext();
         self.assertEqual(returnedContext.precision, expectedPrecision);
+
+    def test_returnsCorrectNumberOfDigits(self):
+        self.assertTrue(0);
 
 if __name__ == '__main__':
     unittest.main()
