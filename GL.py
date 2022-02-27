@@ -54,7 +54,7 @@ class BB2(PiComputation):
     def computePi(self, nMax):        
         alpha = number(6) - number(4)*sqrt(2);
         k = number(3)-number(2)*sqrt(2);
-        piOut = div(1, alpha);
+        piOut = 1/alpha;
 
         for n in range(nMax+1):            
             piOut = div(1, alpha);
