@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from http.client import PRECONDITION_FAILED
-from operator import inv
 import gmpy2
 from PiComputation import PiComputation
 
