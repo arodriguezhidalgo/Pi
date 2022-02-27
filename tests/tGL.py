@@ -6,7 +6,7 @@ from GL import GL, BB1
 from math import pi
 from PiComputation import PiComputation
 
-class GLSystemLevel(unittest.TestCase):
+class SystemLevel(unittest.TestCase):
 
     def setUp(self):        
         self.precision = 100; # 100 bits.
@@ -48,7 +48,7 @@ class GLSystemLevel(unittest.TestCase):
         # Verification
         self.assertAlmostEqual(returnedPi, expectedPi,15);
         
-class GLUnitLevel(unittest.TestCase):
+class UnitLevel(unittest.TestCase):
     @parameterized.expand([
        ("GL", lambda x: GL(x)),   
        ("BB1", lambda x: BB1(x)),    
