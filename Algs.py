@@ -29,6 +29,9 @@ class GL(PiComputation):
                 error = self.getErrorDigits(outUpper, outLower);
                 
             return outLower, error
+
+    def computeOutput(self, a,s):        
+        return  a**2/s;
    
 class BB1(PiComputation):
     # Algorithm 2.1 in chapter 2.
