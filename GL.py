@@ -48,7 +48,7 @@ class BB1(PiComputation):
             y = (y*sqrt(x)+rec_sqrt(x))/(y+1);
             x = xNew;
         
-        return outLower, self.getErrorDigits(outLower, outUpper);
+        return outUpper, self.getErrorDigits(outLower, outUpper);
 
 class BB2(PiComputation):
     def computePi(self, nMax):        
