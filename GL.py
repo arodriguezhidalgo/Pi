@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from http.client import PRECONDITION_FAILED
 import gmpy2
 from PiComputation import PiComputation
 
@@ -27,7 +28,6 @@ class GL(PiComputation):
                 error = self.getErrorDigits(out, outLower);
                 
             return out, error
-
    
 class BB1(PiComputation):
     # Algorithm 2.1 in chapter 2.
@@ -49,8 +49,42 @@ class BB1(PiComputation):
         
         return outLower, self.getErrorDigits(outLower, outUpper);
 
-        
+class BB2(PiComputation):
+    def computePi(self, nMax, verbose = 0):        
+        alpha = number(6) - number(4)*sqrt(2);
+        k = number(3)-number(2)*sqrt(2);
+        piOut = div(1, alpha);
+        if verbose:
+            print(piOut);
 
+        piOld = 4;
+        
+        for n in range(nMax+1):
+            piOld = piOut;
+            piOut = div(1, alpha);
+            if verbose:
+                print(piOut, self.getErrorDigits(piOld, piOut));
+                
+            kFake = sqrt(1-prod(k,k));
+            k = div(sub(1,kFake), add(1,kFake));
+
+            alpha = square(1+k)*alpha-pow2(n+2)*k;
+
+        # We compare our pi digits with the next iteration, which tells
+        # us what digits are correct. Then, return the old value.
+        return piOld, self.getErrorDigits(piOld, piOut)
+
+def pi():
+    return gmpy2.const_pi();
+
+def pow2(n):
+    return gmpy2.exp2(n);
+
+def square(x):
+    return prod(x,x);
+
+def number(x):
+    return gmpy2.mpfr(x);
 def rec_sqrt(a):
     return gmpy2.rec_sqrt(a);
 
