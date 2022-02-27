@@ -12,7 +12,7 @@ class GL(PiComputation):
             s = number(1/4.0);
 
             for i in range(nMax+1 ):
-                out = self.computeOutput(a, s);        
+                outUpper = self.computeOutput(a, s);        
                 aNew = arMean(a,b);
                 c = a-aNew;
 
@@ -26,9 +26,9 @@ class GL(PiComputation):
                 a = aNew; 
 
                 outLower = self.computeOutput(a, s);       
-                error = self.getErrorDigits(out, outLower);
+                error = self.getErrorDigits(outUpper, outLower);
                 
-            return out, error
+            return outLower, error
    
 class BB1(PiComputation):
     # Algorithm 2.1 in chapter 2.
