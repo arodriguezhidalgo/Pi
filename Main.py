@@ -1,5 +1,5 @@
-from GL import GL
-obj = GL(2000)
-out, error = obj.computePi(2,2000)
+from Algs import BB4
+obj = BB4(20000000)
+out, error = obj.computePi(8)
 print(out)
 print(error)
