@@ -22,11 +22,12 @@ class GLSystemLevel(unittest.TestCase):
         specimen = SUT(self.precision);
 
         # Setup
-        nIterations = 4;         
+        nIterations = 2;         
                 
         # Exec
         [dummy, returnedError] = specimen.computePi(nIterations);
-        
+        print(dummy)
+        print(returnedError)
         # Assertion
         self.assertEqual(returnedError, expectedError);        
 
