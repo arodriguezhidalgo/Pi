@@ -7,8 +7,8 @@ from PiComputation import PiComputation
 
 class GL(PiComputation):        
     def computePi(self, nMax, verbose = 0):        
-            a = gmpy2.mpfr('1.0');
-            b = gmpy2.mpfr(1.0/gmpy2.sqrt(2));
+            a = number(1.0);
+            b = 1.0/sqrt(2);
             s = gmpy2.mpfr(1/4.0);
 
             for i in range(nMax+1 ):
