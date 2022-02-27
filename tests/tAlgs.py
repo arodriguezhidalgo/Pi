@@ -2,7 +2,7 @@
 
 import unittest
 from parameterized import parameterized
-from GL import GL, BB1, BB2, BB4
+from Algs import GL, BB1, BB2, BB4
 from math import pi
 from PiComputation import PiComputation
 
