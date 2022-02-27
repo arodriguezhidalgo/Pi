@@ -9,7 +9,7 @@ from PiComputation import PiComputation
 class GLSystemLevel(unittest.TestCase):
 
     def setUp(self):        
-        self.precision = 100; # bits.
+        self.precision = 100; # 100 bits.
         return self
 
     @parameterized.expand([
@@ -22,12 +22,11 @@ class GLSystemLevel(unittest.TestCase):
         specimen = SUT(self.precision);
 
         # Setup
-        nIterations = 2;         
+        nIterations = 4;        # 4 
                 
         # Exec
         [dummy, returnedError] = specimen.computePi(nIterations);
-        print(dummy)
-        print(returnedError)
+        
         # Assertion
         self.assertEqual(returnedError, expectedError);        
 

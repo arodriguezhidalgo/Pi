@@ -32,23 +32,26 @@ class GL(PiComputation):
 class BB1(PiComputation):
     def computePi(self, nMax, verbose = 0):   
         x = sqrt(gmpy2.mpfr('2'));
-
+        
         outLower = x;
         outUpper = add(x, gmpy2.mpfr('2'));        
-                    
+        
         y = sqrt(x);
-        x = gmpy2.mpfr('0.5')*(sqrt(x)+div(1, sqrt(x)));
+        x = gmpy2.div_2exp(1,1)*(sqrt(x)+rec_sqrt(x));
 
-        for n in range( nMax):
-            outLower =  gmpy2.mpfr('2')*outUpper/(y+1);
-            outUpper = outLower*(x+1)/gmpy2.mpfr('2');
-            x = gmpy2.mpfr('0.5')*(sqrt(x)+div(1, sqrt(x)));
-            y = (y*sqrt(x)+div(1, sqrt(x)))/(y+1);
+        for n in range( 0, nMax):
+            outLower =  gmpy2.mpfr('2')*outUpper/add(y,1);            
+            outUpper = outLower*add(x,1)/gmpy2.mpfr('2');
+            xNew = gmpy2.div_2exp(1,1)*(sqrt(x)+rec_sqrt(x));
+            y = div((y*sqrt(x)+rec_sqrt(x)),(y+1));
+            x = xNew;
+        
         return outLower, self.getErrorDigits(outLower, outUpper);
 
         
 
-
+def rec_sqrt(a):
+    return gmpy2.rec_sqrt(a);
 
 def add(a,b):
     return gmpy2.add(a,b);
