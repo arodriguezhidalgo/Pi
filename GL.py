@@ -9,19 +9,19 @@ class GL(PiComputation):
     def computePi(self, nMax, verbose = 0):        
             a = number(1.0);
             b = 1.0/sqrt(2);
-            s = gmpy2.mpfr(1/4.0);
+            s = number(1/4.0);
 
             for i in range(nMax+1 ):
                 out = self.computeOutput(a, s);        
                 aNew = arMean(a,b);
-                c = sub(a,aNew);
+                c = a-aNew;
 
                 if verbose:
-                    print(prod(a,a)/s, prod(aNew,aNew)/s)           
+                    print(a**2/s, aNew**2/s)           
                 
                 bNew = geoMean(a,b);           
 
-                s = sub(s, prod(gmpy2.exp2(i),prod(c,c)));            
+                s = (s- ((2**i)*(c**2)));            
                 b = bNew;
                 a = aNew; 
 
@@ -85,20 +85,11 @@ class BB4(PiComputation):
         piNew = 1/z;                        
         return piOld, self.getErrorDigits(piOld, piNew);
 
-def pi():
-    return gmpy2.const_pi();
-
 def root(x,n):
     return gmpy2.root(x,n);
 
 def pow2(n):
     return gmpy2.exp2(n);
-
-def pow4(x):
-    return square(x)*square(x);
-
-def square(x):
-    return prod(x,x);square
 
 def number(x):
     return gmpy2.mpfr(x);
@@ -106,23 +97,11 @@ def number(x):
 def rec_sqrt(a):
     return gmpy2.rec_sqrt(a);
 
-def add(a,b):
-    return gmpy2.add(a,b);
-
-def sub(a,b):
-    return gmpy2.sub(a,b);
-
-def div(a,b):
-    return gmpy2.div(a,b);
-
-def prod(a,b):
-    return gmpy2.mul(a,b);
-
 def sqrt(a):
     return gmpy2.sqrt(a);
 
 def arMean(a,b):
-    return div(add(a,b),2);    
+    return (a+b)/2;    
 
 def geoMean(a,b):
-    return sqrt(prod(a, b));
+    return sqrt(a*b);
