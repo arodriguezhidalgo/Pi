@@ -30,6 +30,7 @@ class GL(PiComputation):
 
    
 class BB1(PiComputation):
+    # Algorithm 2.1 in chapter 2.
     def computePi(self, nMax, verbose = 0):   
         x = sqrt(gmpy2.mpfr('2'));
         
