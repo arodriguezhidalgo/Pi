@@ -33,19 +33,19 @@ class GL(PiComputation):
 class BB1(PiComputation):
     # Algorithm 2.1 in chapter 2.
     def computePi(self, nMax, verbose = 0):   
-        x = sqrt(gmpy2.mpfr('2'));
+        x = sqrt(number(2));
         
         outLower = x;
-        outUpper = add(x, gmpy2.mpfr('2'));        
+        outUpper = x+number(2);        
         
         y = sqrt(x);
-        x = gmpy2.div_2exp(1,1)*(sqrt(x)+rec_sqrt(x));
+        x = 1/2*(sqrt(x)+rec_sqrt(x));
 
         for n in range( 0, nMax):
-            outLower =  gmpy2.mpfr('2')*outUpper/add(y,1);            
-            outUpper = outLower*add(x,1)/gmpy2.mpfr('2');
-            xNew = gmpy2.div_2exp(1,1)*(sqrt(x)+rec_sqrt(x));
-            y = div((y*sqrt(x)+rec_sqrt(x)),(y+1));
+            outLower = number(2)*outUpper/(y+1);            
+            outUpper = outLower*(x+1)/number(2);
+            xNew = 1/2*(sqrt(x)+rec_sqrt(x));
+            y = (y*sqrt(x)+rec_sqrt(x))/(y+1);
             x = xNew;
         
         return outLower, self.getErrorDigits(outLower, outUpper);
@@ -57,12 +57,12 @@ class BB2(PiComputation):
         piOut = 1/alpha;
 
         for n in range(nMax+1):            
-            piOut = div(1, alpha);
+            piOut = 1/alpha;
                             
-            kFake = sqrt(1-prod(k,k));
-            k = div(sub(1,kFake), add(1,kFake));
-            alpha = square(1+k)*alpha-pow2(n+2)*k;
-        piNew = div(1, alpha);
+            kFake = sqrt(1-k**2);
+            k = (1-kFake)/(1+kFake);
+            alpha = ((1+k)**2)*alpha-pow2(n+2)*k;
+        piNew = 1/alpha;
         
         # We compare our pi digits with the next iteration, which tells
         # us what digits are correct. Then, return the old value.
@@ -72,13 +72,13 @@ class BB2(PiComputation):
 class BB4(PiComputation):
     def computePi(self, nMax, verbose = 0):        
         y = sqrt(2)-number(1);
-        z = square(y)*number(2);        
+        z = (y**2)*number(2);        
         
         piOld = 1/z;  
         for n in range(nMax+1):
             piOld = 1/z;            
                  
-            aux = root(1-pow4(y),4);
+            aux = root(1-y**4,4);
             y = (1-aux)/(1+aux);
             z = z*(1+y)**4-pow2(2*n+3)*y*(1+y+y**2);
 
@@ -98,7 +98,7 @@ def pow4(x):
     return square(x)*square(x);
 
 def square(x):
-    return prod(x,x);
+    return prod(x,x);square
 
 def number(x):
     return gmpy2.mpfr(x);
